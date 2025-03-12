@@ -14,10 +14,12 @@
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.1",
     "git-commit-msg-linter": "^5.0.8",
     "globals": "^16.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.5.0",
+    "prettier": "^3.5.3",
     "typescript-eslint": "^8.26.1"
   }
 }
