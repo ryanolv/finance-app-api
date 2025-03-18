@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "npx husky install"
+    "postinstall": "npx husky install",
+    "start": "node --no-warnings  --loader ts-node/esm src/index.ts",
+    "build": "tsc",
+    "serve": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +16,8 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@types/express": "^5.0.0",
+    "@types/pg": "^8.11.11",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.1",
     "git-commit-msg-linter": "^5.0.8",
@@ -20,6 +25,13 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.5.0",
     "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.14.1"
   }
 }
