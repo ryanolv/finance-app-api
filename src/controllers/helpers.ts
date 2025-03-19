@@ -21,3 +21,8 @@ export const ok = (body: object) => ({
   statusCode: 200,
   body,
 });
+
+export const notFound = (body: object) => ({
+  statusCode: 404,
+  body,
+});
