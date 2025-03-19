@@ -1,25 +1,23 @@
-export const badRequest = (message: string) => {
-  return {
-    statusCode: 400,
-    body: {
-      message,
-    },
-  };
-};
+export const badRequest = (message: string) => ({
+  statusCode: 400,
+  body: {
+    message,
+  },
+});
 
-export const created = (createdUser: object) => {
-  return {
-    statusCode: 201,
+export const created = (createdUser: object) => ({
+  statusCode: 201,
+  body: createdUser,
+});
 
-    body: createdUser,
-  };
-};
+export const internalServerError = () => ({
+  statusCode: 500,
+  body: {
+    errorMessage: "Internal server error",
+  },
+});
 
-export const internalServerError = () => {
-  return {
-    statusCode: 500,
-    body: {
-      errorMessage: "Internal server error",
-    },
-  };
-};
+export const ok = (body: object) => ({
+  statusCode: 200,
+  body,
+});
