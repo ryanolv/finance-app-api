@@ -1,3 +1,4 @@
+import { EmailAlreadyExistsError } from "../errors/user.js";
 import { CreateUserUseCase } from "../use-cases/create-user.js";
 import { badRequest, created, internalServerError } from "./helpers.js";
 
@@ -21,7 +22,6 @@ export class CreateUserController {
       }
 
       for (const field of requiredFields) {
-        // TODO: retirar espaços em branco
         const value = params[field as keyof typeof params];
 
         if (!value || value.trim() === "") {
@@ -43,7 +43,9 @@ export class CreateUserController {
       const createdUser = await createUserUseCase.execute(params);
       return created(createdUser);
     } catch (error) {
-      console.log(error);
+      if (error instanceof EmailAlreadyExistsError) {
+        return badRequest(error.message);
+      }
       return internalServerError();
     }
   }

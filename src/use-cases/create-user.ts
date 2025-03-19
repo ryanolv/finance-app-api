@@ -6,6 +6,7 @@ import {
   PostgresCreateUserRepository,
 } from "../repositories/postgres/create-user.js";
 import { PostgresGetUserByEmailRepository } from "../repositories/postgres/get-user-by-email.js";
+import { EmailAlreadyExistsError } from "../errors/user.js";
 
 export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
 
@@ -18,7 +19,7 @@ export class CreateUserUseCase {
       await postgresGetUserByEmailRepository.execute(createUserParams.email);
 
     if (userWithProvidedEmail) {
-      throw new Error("User with provided email already exists.");
+      throw new EmailAlreadyExistsError();
     }
 
     const userId = uuidv4();
