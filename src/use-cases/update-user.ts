@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 
-import { EmailAlreadyExistsError } from "../errors/user";
-import { PostgresGetUserByEmailRepository } from "../repositories/postgres/get-user-by-email";
-import { PostgresUpdateUserRepository } from "../repositories/postgres/update-user";
+import { EmailAlreadyExistsError } from "../errors/user.js";
+import { PostgresGetUserByEmailRepository } from "../repositories/postgres/get-user-by-email.js";
+import { PostgresUpdateUserRepository } from "../repositories/postgres/update-user.js";
 
 export interface UpdateUserParams {
   first_name?: string;
@@ -11,7 +11,7 @@ export interface UpdateUserParams {
   password?: string;
 }
 
-export class UpdateUseruseCase {
+export class UpdateUserUseCase {
   async execute(userId: string, updatedUserParams: UpdateUserParams) {
     if (updatedUserParams.email) {
       const postgresGetUserByEmailRepository =
