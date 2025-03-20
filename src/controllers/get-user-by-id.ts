@@ -14,6 +14,11 @@ interface HttpRequest {
 }
 
 export class GetUserByIdController {
+  private getUserByIdUseCase: GetUserByIdUseCase;
+
+  constructor(getUserByIdUseCase: GetUserByIdUseCase) {
+    this.getUserByIdUseCase = getUserByIdUseCase;
+  }
   async execute(request: HttpRequest) {
     try {
       const isIdValid = checkIfIdIsValid(request.params.userId);
@@ -21,8 +26,7 @@ export class GetUserByIdController {
         return invalidIdResponse();
       }
 
-      const getUserByIdUseCase = new GetUserByIdUseCase();
-      const user = await getUserByIdUseCase.execute(request.params.userId);
+      const user = await this.getUserByIdUseCase.execute(request.params.userId);
 
       if (!user) {
         return notFound({ message: "User not found." });
