@@ -24,6 +24,12 @@ interface HttpRequest {
 }
 
 export class UpdateUserController {
+  private updateUserUseCase: UpdateUserUseCase;
+
+  constructor(updateUserUseCase: UpdateUserUseCase) {
+    this.updateUserUseCase = updateUserUseCase;
+  }
+
   async execute(httpRequest: HttpRequest) {
     try {
       const params = httpRequest.body;
@@ -59,8 +65,7 @@ export class UpdateUserController {
         }
       }
 
-      const updateUserUseCase = new UpdateUserUseCase();
-      const updatedUser = await updateUserUseCase.execute(
+      const updatedUser = await this.updateUserUseCase.execute(
         userId,
         httpRequest.body,
       );

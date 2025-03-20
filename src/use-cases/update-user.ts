@@ -14,13 +14,21 @@ export interface UpdateUserParams {
 }
 
 export class UpdateUserUseCase {
+  private getUserByEmailRepository: PostgresGetUserByEmailRepository;
+  private updateUserRepository: PostgresUpdateUserRepository;
+
+  constructor(
+    getUserByEmailRepository: PostgresGetUserByEmailRepository,
+    updateUserRepository: PostgresUpdateUserRepository,
+  ) {
+    this.getUserByEmailRepository = getUserByEmailRepository;
+    this.updateUserRepository = updateUserRepository;
+  }
   async execute(userId: string, updatedUserParams: UpdateUserParams) {
     if (updatedUserParams.email) {
-      const postgresGetUserByEmailRepository =
-        new PostgresGetUserByEmailRepository();
-
-      const userWithProvideEmail =
-        await postgresGetUserByEmailRepository.execute(updatedUserParams.email);
+      const userWithProvideEmail = await this.getUserByEmailRepository.execute(
+        updatedUserParams.email,
+      );
 
       if (userWithProvideEmail) {
         throw new EmailAlreadyExistsError();
@@ -36,11 +44,7 @@ export class UpdateUserUseCase {
       user.password = hashedPassword;
     }
 
-    const postgresUpdateUserRepository = new PostgresUpdateUserRepository();
-    const updatedUser = await postgresUpdateUserRepository.execute(
-      userId,
-      user,
-    );
+    const updatedUser = await this.updateUserRepository.execute(userId, user);
     return updatedUser;
   }
 }
