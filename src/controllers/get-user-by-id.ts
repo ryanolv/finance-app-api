@@ -1,6 +1,11 @@
 import { GetUserByIdUseCase } from "../use-cases/get-user-by-id.js";
-import { internalServerError, notFound, ok } from "./helpers/http.js";
-import { checkIfIdIsValid, invalidIdResponse } from "./helpers/user.js";
+import {
+  checkIfIdIsValid,
+  invalidIdResponse,
+  internalServerError,
+  notFound,
+  ok,
+} from "./helpers/index.js";
 
 interface HttpRequest {
   params: {

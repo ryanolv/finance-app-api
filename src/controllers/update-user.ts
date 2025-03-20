@@ -1,5 +1,4 @@
 import { UpdateUserUseCase } from "../use-cases/update-user.js";
-import { badRequest, internalServerError, ok } from "./helpers/http.js";
 import {
   checkIfEmailIsNotValid,
   checkIfIdIsValid,
@@ -7,7 +6,10 @@ import {
   invalidEmailResponse,
   invalidIdResponse,
   invalidPasswordResponse,
-} from "./helpers/user.js";
+  badRequest,
+  internalServerError,
+  ok,
+} from "./helpers/index.js";
 
 interface HttpRequest {
   params: {
