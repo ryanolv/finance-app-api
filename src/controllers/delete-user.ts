@@ -20,6 +20,12 @@ interface HttpRequest {
 }
 
 export class DeleteUserController {
+  private deleteUserUseCase: DeleteUserUseCase;
+
+  constructor(deleteUserUseCase: DeleteUserUseCase) {
+    this.deleteUserUseCase = deleteUserUseCase;
+  }
+
   async execute(httpRequest: HttpRequest) {
     try {
       const userId = httpRequest.params.userId;
@@ -28,8 +34,7 @@ export class DeleteUserController {
         return invalidIdResponse();
       }
 
-      const deleteUserUseCase = new DeleteUserUseCase();
-      const deletedUser = await deleteUserUseCase.execute(userId);
+      const deletedUser = await this.deleteUserUseCase.execute(userId);
 
       if (!deletedUser) {
         return notFound({ message: "User not found" });
