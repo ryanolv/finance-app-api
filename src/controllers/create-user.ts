@@ -20,6 +20,12 @@ export interface HttpRequest {
 }
 
 export class CreateUserController {
+  private createUserUseCase: CreateUserUseCase;
+
+  constructor(createUserUseCase: CreateUserUseCase) {
+    this.createUserUseCase = createUserUseCase;
+  }
+
   async execute(httpRequest: HttpRequest) {
     try {
       const params = httpRequest.body;
@@ -47,8 +53,7 @@ export class CreateUserController {
         return invalidPasswordResponse();
       }
 
-      const createUserUseCase = new CreateUserUseCase();
-      const createdUser = await createUserUseCase.execute(params);
+      const createdUser = await this.createUserUseCase.execute(params);
       return created(createdUser);
     } catch (error) {
       if (error instanceof EmailAlreadyExistsError) {

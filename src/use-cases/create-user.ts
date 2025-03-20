@@ -12,12 +12,21 @@ import { EmailAlreadyExistsError } from "../errors/user.js";
 export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
 
 export class CreateUserUseCase {
-  async execute(createUserParams: CreateUserUseCaseParams) {
-    const postgresGetUserByEmailRepository =
-      new PostgresGetUserByEmailRepository();
+  private createUserRepository: PostgresCreateUserRepository;
+  private getUserByEmailRepository: PostgresGetUserByEmailRepository;
 
-    const userWithProvidedEmail =
-      await postgresGetUserByEmailRepository.execute(createUserParams.email);
+  constructor(
+    createUserRepository: PostgresCreateUserRepository,
+    getUserByEmailRepository: PostgresGetUserByEmailRepository,
+  ) {
+    this.createUserRepository = createUserRepository;
+    this.getUserByEmailRepository = getUserByEmailRepository;
+  }
+
+  async execute(createUserParams: CreateUserUseCaseParams) {
+    const userWithProvidedEmail = await this.getUserByEmailRepository.execute(
+      createUserParams.email,
+    );
 
     if (userWithProvidedEmail) {
       throw new EmailAlreadyExistsError();
@@ -32,8 +41,7 @@ export class CreateUserUseCase {
       password: hashedPassword,
     };
 
-    const postgresCreateUserRepository = new PostgresCreateUserRepository();
-    const createdUser = await postgresCreateUserRepository.execute(user);
+    const createdUser = await this.createUserRepository.execute(user);
 
     return createdUser;
   }

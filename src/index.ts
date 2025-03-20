@@ -8,23 +8,28 @@ import {
   UpdateUserController,
 } from "./controllers/index.js";
 import { PostgresGetUserByIdRepository } from "./repositories/postgres/get-user-by-id.js";
-import { GetUserByIdUseCase } from "./use-cases/get-user-by-id.js";
+import { CreateUserUseCase, GetUserByIdUseCase } from "./use-cases/index.js";
+import { PostgresCreateUserRepository } from "./repositories/postgres/index.js";
 
 const app = express();
 app.use(express.json());
 
 app.get("/api/users/:userId", async (request, response) => {
-  const postgresGetUserByIdRepository = new PostgresGetUserByIdRepository();
-  const getUserByIdUseCase = new GetUserByIdUseCase(
-    postgresGetUserByIdRepository,
-  );
+  const getUserByIdRepository = new PostgresGetUserByIdRepository();
+  const getUserByIdUseCase = new GetUserByIdUseCase(getUserByIdRepository);
   const getUserByIdController = new GetUserByIdController(getUserByIdUseCase);
   const { statusCode, body } = await getUserByIdController.execute(request);
   response.status(statusCode).send(body);
 });
 
 app.post("/api/users", async (request, response) => {
-  const createUserController = new CreateUserController();
+  const createUserRepository = new PostgresCreateUserRepository();
+  const getUserByIdRepository = new PostgresGetUserByIdRepository();
+  const createUserUseCase = new CreateUserUseCase(
+    createUserRepository,
+    getUserByIdRepository,
+  );
+  const createUserController = new CreateUserController(createUserUseCase);
   const { statusCode, body } = await createUserController.execute(request);
 
   response.status(statusCode).send(body);
