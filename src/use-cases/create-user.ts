@@ -4,8 +4,9 @@ import bcrypt from "bcrypt";
 import {
   CreateUserParams,
   PostgresCreateUserRepository,
-} from "../repositories/postgres/create-user.js";
-import { PostgresGetUserByEmailRepository } from "../repositories/postgres/get-user-by-email.js";
+  PostgresGetUserByEmailRepository,
+} from "../repositories/postgres/index.js";
+
 import { EmailAlreadyExistsError } from "../errors/user.js";
 
 export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
