@@ -1,7 +1,6 @@
-import validator from "validator";
-
 import { GetUserByIdUseCase } from "../use-cases/get-user-by-id.js";
-import { badRequest, internalServerError, notFound, ok } from "./helpers.js";
+import { internalServerError, notFound, ok } from "./helpers/http.js";
+import { checkIfIdIsValid, invalidIdResponse } from "./helpers/user.js";
 
 interface HttpRequest {
   params: {
@@ -12,9 +11,9 @@ interface HttpRequest {
 export class GetUserByIdController {
   async execute(request: HttpRequest) {
     try {
-      const isIdValid = validator.isUUID(request.params.userId);
+      const isIdValid = checkIfIdIsValid(request.params.userId);
       if (!isIdValid) {
-        return badRequest("The provided id is not valid.");
+        return invalidIdResponse();
       }
 
       const getUserByIdUseCase = new GetUserByIdUseCase();

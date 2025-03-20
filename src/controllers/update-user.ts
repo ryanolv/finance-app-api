@@ -1,7 +1,13 @@
-import validator from "validator";
-
-import { badRequest, internalServerError, ok } from "./helpers.js";
 import { UpdateUserUseCase } from "../use-cases/update-user.js";
+import { badRequest, internalServerError, ok } from "./helpers/http.js";
+import {
+  checkIfEmailIsNotValid,
+  checkIfIdIsValid,
+  checkIfPasswordIsNotValid,
+  invalidEmailResponse,
+  invalidIdResponse,
+  invalidPasswordResponse,
+} from "./helpers/user.js";
 
 interface HttpRequest {
   params: {
@@ -18,16 +24,16 @@ interface HttpRequest {
 export class UpdateUserController {
   async execute(httpRequest: HttpRequest) {
     try {
-      const updateUserParams = httpRequest.body;
+      const params = httpRequest.body;
       const userId = httpRequest.params.userId;
-      const isIdValid = validator.isUUID(userId);
+      const isIdValid = checkIfIdIsValid(userId);
 
       if (!isIdValid) {
-        return badRequest("The provided id is not valid.");
+        return invalidIdResponse();
       }
 
       const allowedFields = ["first_name", "last_name", "email", "password"];
-      const someFieldIsNotAllowed = Object.keys(updateUserParams).some(
+      const someFieldIsNotAllowed = Object.keys(params).some(
         (field) => !allowedFields.includes(field),
       );
 
@@ -35,19 +41,19 @@ export class UpdateUserController {
         return badRequest("Some provided field is not allowed.");
       }
 
-      if (updateUserParams.password) {
-        const passwordIsNotValid = updateUserParams.password.length < 6;
+      if (params.password) {
+        const passwordIsNotValid = checkIfPasswordIsNotValid(params.password);
 
         if (passwordIsNotValid) {
-          return badRequest("Password must have at least 6 characters");
+          return invalidPasswordResponse();
         }
       }
 
-      if (updateUserParams.email) {
-        const emailIsNotValid = updateUserParams.email.indexOf("@") === -1;
+      if (params.email) {
+        const emailIsNotValid = checkIfEmailIsNotValid(params.email);
 
         if (emailIsNotValid) {
-          return badRequest("Invalid email. Please provide a valid one");
+          return invalidEmailResponse();
         }
       }
 
