@@ -6,6 +6,7 @@ import {
   created,
   internalServerError,
   invalidIdResponse,
+  validateRequiredFields,
 } from "../helpers/index.js";
 import { CreateTransactionUseCase } from "../../use-cases/transaction/create-transaction.js";
 
@@ -32,12 +33,11 @@ export class CreateTransactionController {
 
       const requiredFields = ["user_id", "name", "amount", "type", "date"];
 
-      for (const filed of requiredFields) {
-        const value = params[filed as keyof typeof params];
+      const { ok: requiredFieldsAreFilled, missingField } =
+        validateRequiredFields(params, requiredFields);
 
-        if (!value || value.trim() === "") {
-          return badRequest(`Missing param: ${filed}`);
-        }
+      if (!requiredFieldsAreFilled) {
+        return badRequest(`Missing param: ${missingField}`);
       }
 
       const userIdIsValid = checkIfIdIsValid(params.user_id);

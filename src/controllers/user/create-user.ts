@@ -8,6 +8,7 @@ import {
   badRequest,
   created,
   internalServerError,
+  validateRequiredFields,
 } from "../helpers/index.js";
 
 export interface HttpRequest {
@@ -35,12 +36,11 @@ export class CreateUserController {
         return badRequest("Missing request body");
       }
 
-      for (const field of requiredFields) {
-        const value = params[field as keyof typeof params];
+      const { ok: requiredFieldsAreFilled, missingField } =
+        validateRequiredFields(params, requiredFields);
 
-        if (!value || value.trim() === "") {
-          return badRequest(`Missing param: ${field}`);
-        }
+      if (!requiredFieldsAreFilled) {
+        return badRequest(`Missing param: ${missingField}`);
       }
 
       const emailIsNotValid = checkIfEmailIsNotValid(params.email);
