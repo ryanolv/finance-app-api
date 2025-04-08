@@ -1,0 +1,11 @@
+import { PostgresHelper } from "../../../db/postgres/helper";
+
+export class PostgresGetTransactionByIdRepository {
+  async execute(transactionId: string) {
+    const transaction = await PostgresHelper.query(
+      `SELECT * FROM transactions WHERE id = $1`,
+      [transactionId],
+    );
+    return transaction[0];
+  }
+}
