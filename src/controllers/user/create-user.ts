@@ -1,5 +1,5 @@
-import { EmailAlreadyExistsError } from "../errors/user.js";
-import { CreateUserUseCase } from "../use-cases/index.js";
+import { EmailAlreadyExistsError } from "../../errors/user.js";
+import { CreateUserUseCase } from "../../use-cases/index.js";
 import {
   checkIfEmailIsNotValid,
   checkIfPasswordIsNotValid,
@@ -8,7 +8,7 @@ import {
   badRequest,
   created,
   internalServerError,
-} from "./helpers/index.js";
+} from "../helpers/index.js";
 
 export interface HttpRequest {
   body: {

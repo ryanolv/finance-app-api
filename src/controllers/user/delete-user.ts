@@ -1,11 +1,11 @@
-import { DeleteUserUseCase } from "../use-cases/index.js";
+import { DeleteUserUseCase } from "../../use-cases/index.js";
 import {
   checkIfIdIsValid,
   internalServerError,
   invalidIdResponse,
   notFound,
   ok,
-} from "./helpers/index.js";
+} from "../helpers/index.js";
 
 interface HttpRequest {
   params: {
