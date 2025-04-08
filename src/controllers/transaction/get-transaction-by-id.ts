@@ -29,7 +29,8 @@ export class GetTransactionByIdController {
         return invalidIdResponse();
       }
 
-      const transaction = this.getTransactionByIdUseCase.execute(transactionId);
+      const transaction =
+        await this.getTransactionByIdUseCase.execute(transactionId);
 
       if (!transaction) {
         return notFound({ message: "Transaction not found." });
