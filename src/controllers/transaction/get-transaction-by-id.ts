@@ -1,4 +1,4 @@
-import { GetTransactionByIdUseCase } from "../../use-cases/transaction/get-transaction-by-id";
+import { GetTransactionByIdUseCase } from "../../use-cases/index.js";
 import {
   checkIfIdIsValid,
   internalServerError,

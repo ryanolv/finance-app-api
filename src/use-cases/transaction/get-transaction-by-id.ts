@@ -1,4 +1,4 @@
-import { PostgresGetTransactionByIdRepository } from "../../repositories/postgres/transaction/get-transaction-by-id";
+import { PostgresGetTransactionByIdRepository } from "../../repositories/postgres/index.js";
 
 export class GetTransactionByIdUseCase {
   private getTransactionByIdRepository: PostgresGetTransactionByIdRepository;
