@@ -5,9 +5,9 @@ import {
   CreateUserParams,
   PostgresCreateUserRepository,
   PostgresGetUserByEmailRepository,
-} from "../repositories/postgres/index.js";
+} from "../../repositories/postgres/index.js";
 
-import { EmailAlreadyExistsError } from "../errors/user.js";
+import { EmailAlreadyExistsError } from "../../errors/user.js";
 
 export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
 

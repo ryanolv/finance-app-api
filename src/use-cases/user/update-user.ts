@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 
-import { EmailAlreadyExistsError } from "../errors/user.js";
+import { EmailAlreadyExistsError } from "../../errors/user.js";
 import {
   PostgresGetUserByEmailRepository,
   PostgresUpdateUserRepository,
-} from "../repositories/postgres/index.js";
+} from "../../repositories/postgres/index.js";
 
 export interface UpdateUserParams {
   first_name?: string;

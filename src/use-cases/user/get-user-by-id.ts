@@ -1,4 +1,4 @@
-import { PostgresGetUserByIdRepository } from "../repositories/postgres";
+import { PostgresGetUserByIdRepository } from "../../repositories/postgres/index.js";
 
 export class GetUserByIdUseCase {
   private getUserByIdRepository: PostgresGetUserByIdRepository;
