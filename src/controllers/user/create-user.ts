@@ -9,6 +9,7 @@ import {
   created,
   internalServerError,
   validateRequiredFields,
+  requiredFieldIsMissingResponse,
 } from "../helpers/index.js";
 
 export interface HttpRequest {
@@ -40,7 +41,7 @@ export class CreateUserController {
         validateRequiredFields(params, requiredFields);
 
       if (!requiredFieldsAreFilled) {
-        return badRequest(`Missing param: ${missingField}`);
+        return requiredFieldIsMissingResponse(missingField as string);
       }
 
       const emailIsNotValid = checkIfEmailIsNotValid(params.email);

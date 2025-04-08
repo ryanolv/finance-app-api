@@ -6,6 +6,7 @@ import {
   created,
   internalServerError,
   invalidIdResponse,
+  requiredFieldIsMissingResponse,
   validateRequiredFields,
 } from "../helpers/index.js";
 import { CreateTransactionUseCase } from "../../use-cases/transaction/create-transaction.js";
@@ -37,7 +38,7 @@ export class CreateTransactionController {
         validateRequiredFields(params, requiredFields);
 
       if (!requiredFieldsAreFilled) {
-        return badRequest(`Missing param: ${missingField}`);
+        return requiredFieldIsMissingResponse(missingField as string);
       }
 
       const userIdIsValid = checkIfIdIsValid(params.user_id);
