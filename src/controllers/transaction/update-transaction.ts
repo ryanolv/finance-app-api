@@ -6,6 +6,7 @@ import {
   internalServerError,
   invalidIdResponse,
   invalidTypeResponse,
+  ok,
   someFieldIsNotAllowedResponse,
 } from "../helpers/index.js";
 
@@ -63,7 +64,7 @@ export class UpdateTransactionController {
         body,
       );
 
-      return transaction;
+      return ok(transaction);
     } catch (error) {
       console.error(error);
       return internalServerError();
