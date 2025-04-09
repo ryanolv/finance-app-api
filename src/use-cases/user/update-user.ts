@@ -1,18 +1,16 @@
 import bcrypt from "bcrypt";
 
 import { EmailAlreadyExistsError } from "../../errors/user.js";
-import {
-  PostgresGetUserByEmailRepository,
-  PostgresUpdateUserRepository,
-} from "../../repositories/postgres/index.js";
+import { PostgresUpdateUserRepository } from "../../repositories/postgres/index.js";
 import { UpdateUserParams } from "../../types/index.js";
+import { GetUserByEmailRepository } from "../../interfaces/repositories/user.js";
 
 export class UpdateUserUseCase {
-  private getUserByEmailRepository: PostgresGetUserByEmailRepository;
+  private getUserByEmailRepository: GetUserByEmailRepository;
   private updateUserRepository: PostgresUpdateUserRepository;
 
   constructor(
-    getUserByEmailRepository: PostgresGetUserByEmailRepository,
+    getUserByEmailRepository: GetUserByEmailRepository,
     updateUserRepository: PostgresUpdateUserRepository,
   ) {
     this.getUserByEmailRepository = getUserByEmailRepository;

@@ -1,21 +1,22 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 
-import { PostgresGetUserByEmailRepository } from "../../repositories/postgres/index.js";
-
 import { EmailAlreadyExistsError } from "../../errors/user.js";
 import { CreateUserParams } from "../../types/index.js";
-import { CreateUserRepository } from "../../interfaces/repositories/user.js";
+import {
+  CreateUserRepository,
+  GetUserByEmailRepository,
+} from "../../interfaces/repositories/user.js";
 
 export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
 
 export class CreateUserUseCase {
   private createUserRepository: CreateUserRepository;
-  private getUserByEmailRepository: PostgresGetUserByEmailRepository;
+  private getUserByEmailRepository: GetUserByEmailRepository;
 
   constructor(
     createUserRepository: CreateUserRepository,
-    getUserByEmailRepository: PostgresGetUserByEmailRepository,
+    getUserByEmailRepository: GetUserByEmailRepository,
   ) {
     this.createUserRepository = createUserRepository;
     this.getUserByEmailRepository = getUserByEmailRepository;
