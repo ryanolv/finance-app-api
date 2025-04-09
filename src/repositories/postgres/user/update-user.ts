@@ -1,8 +1,12 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
-import { UpdateUserParams } from "../../../types/index.js";
+import { UpdateUserRepository } from "../../../interfaces/repositories/user.js";
+import { UpdateUserParams, User } from "../../../types/index.js";
 
-export class PostgresUpdateUserRepository {
-  async execute(userId: string, updatedUserParams: UpdateUserParams) {
+export class PostgresUpdateUserRepository implements UpdateUserRepository {
+  async execute(
+    userId: string,
+    updatedUserParams: UpdateUserParams,
+  ): Promise<User> {
     const updateFields: string[] = [];
     const updateValues: string[] = [];
 
@@ -21,6 +25,6 @@ export class PostgresUpdateUserRepository {
     `;
 
     const updatedUser = await PostgresHelper.query(updateQuery, updateValues);
-    return updatedUser[0];
+    return updatedUser[0] as User;
   }
 }

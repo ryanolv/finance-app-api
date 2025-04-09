@@ -1,4 +1,4 @@
-import { User, CreateUserParams } from "../../types/index.js";
+import { User, CreateUserParams, UpdateUserParams } from "../../types/index.js";
 
 export interface CreateUserRepository {
   execute(createUserParams: CreateUserParams): Promise<User>;
@@ -14,4 +14,8 @@ export interface GetUserByEmailRepository {
 
 export interface DeleteUserRepository {
   execute(userId: string): Promise<User>;
+}
+
+export interface UpdateUserRepository {
+  execute(userId: string, updateUserParams: UpdateUserParams): Promise<User>;
 }
