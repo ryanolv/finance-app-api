@@ -4,6 +4,7 @@ import {
   checkIfIdIsValid,
   checkIfTypeIsValid,
   internalServerError,
+  invalidAmountResponse,
   invalidIdResponse,
   invalidTypeResponse,
   ok,
@@ -48,7 +49,7 @@ export class UpdateTransactionController {
       if (body.amount) {
         const validAmount = checkIfAmountIsValid(body.amount);
         if (!validAmount) {
-          return checkIfAmountIsValid(body.amount);
+          return invalidAmountResponse();
         }
       }
 
