@@ -1,12 +1,9 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
-import { CreateUserParams } from "../../../types/index.js";
-
-interface CreateUserRepository {
-  execute: (createUserParams: CreateUserParams) => Promise<object>;
-}
+import { CreateUserRepository } from "../../../interfaces/repositories/user.js";
+import { CreatedUser, CreateUserParams } from "../../../types/index.js";
 
 export class PostgresCreateUserRepository implements CreateUserRepository {
-  async execute(createUserParams: CreateUserParams) {
+  async execute(createUserParams: CreateUserParams): Promise<CreatedUser> {
     await PostgresHelper.query(
       "INSERT INTO users (ID, first_name, last_name, email, password) VALUES ($1, $2, $3, $4, $5);",
       [
@@ -23,6 +20,6 @@ export class PostgresCreateUserRepository implements CreateUserRepository {
       [createUserParams.ID],
     );
 
-    return createdUser[0];
+    return createdUser[0] as CreatedUser;
   }
 }
