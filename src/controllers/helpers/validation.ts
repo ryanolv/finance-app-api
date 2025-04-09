@@ -10,6 +10,9 @@ export const invalidIdResponse = () =>
 export const requiredFieldIsMissingResponse = (field: string) =>
   badRequest(`The field ${field} is required.`);
 
+export const someFieldIsNotAllowedResponse = () =>
+  badRequest("Some provided field is not allowed.");
+
 export const checkIfIsString = (value: unknown) => typeof value === "string";
 
 export const validateRequiredFields = (
