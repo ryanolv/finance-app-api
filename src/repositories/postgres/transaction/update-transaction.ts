@@ -18,7 +18,7 @@ export class PostgresUpdateTransactionRepository {
     Object.keys(updateTransactionParams).forEach((key) => {
       const typedKey = key as keyof UpdateTransactionParams;
       updateFields.push(`${key} = $${updateValues.length + 1}`);
-      updateFields.push(updateTransactionParams[typedKey] as string);
+      updateValues.push(updateTransactionParams[typedKey] as string);
     });
     updateValues.push(transactionId);
 
