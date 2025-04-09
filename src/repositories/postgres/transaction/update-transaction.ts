@@ -1,6 +1,6 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
 
-type UpdateTransactionParams = {
+export type UpdateTransactionParams = {
   name?: string;
   date?: string;
   amount?: string;
