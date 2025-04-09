@@ -2,10 +2,10 @@ import { v4 as uuidv4 } from "uuid";
 
 import { UserNotFoundError } from "../../errors/user.js";
 import {
-  CreateTransactionParams,
   PostgresCreateTransactionRepository,
   PostgresGetUserByIdRepository,
 } from "../../repositories/postgres/index.js";
+import { CreateTransactionParams } from "../../types/index.js";
 
 export class CreateTransactionUseCase {
   private createTransactionRepository: PostgresCreateTransactionRepository;

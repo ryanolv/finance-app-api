@@ -1,11 +1,5 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
-
-export type UpdateTransactionParams = {
-  name?: string;
-  date?: string;
-  amount?: string;
-  type?: string;
-};
+import { UpdateTransactionParams } from "../../../types/index.js";
 
 export class PostgresUpdateTransactionRepository {
   async execute(

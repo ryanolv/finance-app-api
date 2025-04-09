@@ -1,12 +1,6 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
+import { CreateUserParams } from "../../../types/index.js";
 
-export interface CreateUserParams {
-  ID: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-}
 interface CreateUserRepository {
   execute: (createUserParams: CreateUserParams) => Promise<object>;
 }

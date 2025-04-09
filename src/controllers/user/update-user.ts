@@ -1,3 +1,4 @@
+import { UpdateUserRequest } from "../../types/index.js";
 import { UpdateUserUseCase } from "../../use-cases/index.js";
 import {
   checkIfEmailIsNotValid,
@@ -11,18 +12,6 @@ import {
   ok,
 } from "../helpers/index.js";
 
-interface HttpRequest {
-  params: {
-    userId: string;
-  };
-  body: {
-    first_name?: string;
-    last_name?: string;
-    email?: string;
-    password?: string;
-  };
-}
-
 export class UpdateUserController {
   private updateUserUseCase: UpdateUserUseCase;
 
@@ -30,10 +19,10 @@ export class UpdateUserController {
     this.updateUserUseCase = updateUserUseCase;
   }
 
-  async execute(httpRequest: HttpRequest) {
+  async execute(httpRequest: UpdateUserRequest) {
     try {
       const params = httpRequest.body;
-      const userId = httpRequest.params.userId;
+      const userId = httpRequest.params!.userId;
       const isIdValid = checkIfIdIsValid(userId);
 
       if (!isIdValid) {

@@ -2,12 +2,12 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 
 import {
-  CreateUserParams,
   PostgresCreateUserRepository,
   PostgresGetUserByEmailRepository,
 } from "../../repositories/postgres/index.js";
 
 import { EmailAlreadyExistsError } from "../../errors/user.js";
+import { CreateUserParams } from "../../types/index.js";
 
 export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
 

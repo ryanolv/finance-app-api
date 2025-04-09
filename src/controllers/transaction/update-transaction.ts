@@ -1,3 +1,4 @@
+import { UpdateTransactionRequest } from "../../types/transaction.js";
 import { UpdateTransactionUseCase } from "../../use-cases/index.js";
 import {
   checkIfAmountIsValid,
@@ -11,18 +12,6 @@ import {
   someFieldIsNotAllowedResponse,
 } from "../helpers/index.js";
 
-type HttpRequest = {
-  params: {
-    transactionId: string;
-  };
-  body: {
-    name?: string;
-    amount?: string;
-    date?: string;
-    type?: string;
-  };
-};
-
 export class UpdateTransactionController {
   private updateTransactionUseCase: UpdateTransactionUseCase;
 
@@ -30,9 +19,9 @@ export class UpdateTransactionController {
     this.updateTransactionUseCase = updateTransactionUseCase;
   }
 
-  async execute({ params, body }: HttpRequest) {
+  async execute({ params, body }: UpdateTransactionRequest) {
     try {
-      const validId = checkIfIdIsValid(params.transactionId);
+      const validId = checkIfIdIsValid(params!.transactionId);
       if (!validId) {
         return invalidIdResponse();
       }
@@ -61,7 +50,7 @@ export class UpdateTransactionController {
       }
 
       const transaction = await this.updateTransactionUseCase.execute(
-        params.transactionId,
+        params!.transactionId,
         body,
       );
 

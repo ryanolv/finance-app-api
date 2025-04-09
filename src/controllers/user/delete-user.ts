@@ -1,3 +1,4 @@
+import { DeleteUserRequest } from "../../types/index.js";
 import { DeleteUserUseCase } from "../../use-cases/index.js";
 import {
   checkIfIdIsValid,
@@ -7,18 +8,6 @@ import {
   ok,
 } from "../helpers/index.js";
 
-interface HttpRequest {
-  params: {
-    userId: string;
-  };
-  body: {
-    first_name?: string;
-    last_name?: string;
-    email?: string;
-    password?: string;
-  };
-}
-
 export class DeleteUserController {
   private deleteUserUseCase: DeleteUserUseCase;
 
@@ -26,9 +15,9 @@ export class DeleteUserController {
     this.deleteUserUseCase = deleteUserUseCase;
   }
 
-  async execute(httpRequest: HttpRequest) {
+  async execute(httpRequest: DeleteUserRequest) {
     try {
-      const userId = httpRequest.params.userId;
+      const userId = httpRequest.params!.userId;
       const idIsValid = checkIfIdIsValid(userId);
       if (!idIsValid) {
         return invalidIdResponse();

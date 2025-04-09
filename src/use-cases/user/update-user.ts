@@ -5,13 +5,7 @@ import {
   PostgresGetUserByEmailRepository,
   PostgresUpdateUserRepository,
 } from "../../repositories/postgres/index.js";
-
-export interface UpdateUserParams {
-  first_name?: string;
-  last_name?: string;
-  email?: string;
-  password?: string;
-}
+import { UpdateUserParams } from "../../types/index.js";
 
 export class UpdateUserUseCase {
   private getUserByEmailRepository: PostgresGetUserByEmailRepository;

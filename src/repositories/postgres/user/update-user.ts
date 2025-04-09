@@ -1,5 +1,5 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
-import { UpdateUserParams } from "../../../use-cases/user/update-user.js";
+import { UpdateUserParams } from "../../../types/index.js";
 
 export class PostgresUpdateUserRepository {
   async execute(userId: string, updatedUserParams: UpdateUserParams) {

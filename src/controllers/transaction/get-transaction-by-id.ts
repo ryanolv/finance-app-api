@@ -1,3 +1,4 @@
+import { GetTransactionByIdRequest } from "../../types/index.js";
 import { GetTransactionByIdUseCase } from "../../use-cases/index.js";
 import {
   checkIfIdIsValid,
@@ -7,12 +8,6 @@ import {
   ok,
 } from "../helpers/index.js";
 
-type HttpRequest = {
-  params: {
-    transactionId: string;
-  };
-};
-
 export class GetTransactionByIdController {
   private getTransactionByIdUseCase: GetTransactionByIdUseCase;
 
@@ -20,9 +15,9 @@ export class GetTransactionByIdController {
     this.getTransactionByIdUseCase = getTransactionByIdUseCase;
   }
 
-  async execute(httpRequest: HttpRequest) {
+  async execute(httpRequest: GetTransactionByIdRequest) {
     try {
-      const { transactionId } = httpRequest.params;
+      const transactionId = httpRequest.params!.transactionId;
 
       const idIsValid = checkIfIdIsValid(transactionId);
       if (!idIsValid) {

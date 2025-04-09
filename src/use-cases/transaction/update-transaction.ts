@@ -2,8 +2,8 @@ import { TransactionNotFoundError } from "../../errors/transaction.js";
 import {
   PostgresGetTransactionByIdRepository,
   PostgresUpdateTransactionRepository,
-  UpdateTransactionParams,
 } from "../../repositories/postgres/index.js";
+import { UpdateTransactionParams } from "../../types/index.js";
 
 export class UpdateTransactionUseCase {
   private updateTransactionRepository: PostgresUpdateTransactionRepository;

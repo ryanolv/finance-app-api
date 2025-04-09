@@ -11,16 +11,7 @@ import {
   invalidAmountResponse,
 } from "../helpers/index.js";
 import { CreateTransactionUseCase } from "../../use-cases/transaction/create-transaction.js";
-
-type HttpRequest = {
-  body: {
-    user_id: string;
-    name: string;
-    amount: string;
-    type: string;
-    date: string;
-  };
-};
+import { CreateTransactionRequest } from "../../types/transaction.js";
 
 export class CreateTransactionController {
   private createTransactionUseCase: CreateTransactionUseCase;
@@ -29,7 +20,7 @@ export class CreateTransactionController {
     this.createTransactionUseCase = createTransactionUseCase;
   }
 
-  async execute(httpRequest: HttpRequest) {
+  async execute(httpRequest: CreateTransactionRequest) {
     try {
       const params = httpRequest.body;
 

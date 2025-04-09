@@ -1,13 +1,5 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
-
-export interface CreateTransactionParams {
-  id: string;
-  user_id: string;
-  name: string;
-  date: string;
-  amount: string;
-  type: string;
-}
+import { CreateTransactionParams } from "../../../types/index.js";
 
 export class PostgresCreateTransactionRepository {
   async execute(createTransactionParams: CreateTransactionParams) {
