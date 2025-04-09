@@ -27,3 +27,8 @@ export type UpdateTransactionRequest = HttpRequest<
   UpdateTransactionParams,
   { transactionId: string }
 >;
+
+export type DeleteTransactionRequest = HttpRequest<
+  null,
+  { transactionId: string }
+>;
