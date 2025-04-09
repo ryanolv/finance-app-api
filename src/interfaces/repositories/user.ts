@@ -11,3 +11,7 @@ export interface GetUserByIdRepository {
 export interface GetUserByEmailRepository {
   execute(email: string): Promise<CreatedUser>;
 }
+
+export interface DeleteUserRepository {
+  execute(userId: string): Promise<CreatedUser>;
+}
