@@ -15,6 +15,16 @@ export type UpdateUserParams = {
   password?: string;
 };
 
+export type CreatedUser = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  created_at: string;
+  updated_at: string;
+};
+
 export type CreateUserRequest = HttpRequest<Omit<CreateUserParams, "ID">>;
 
 export type DeleteUserRequest = HttpRequest<null, { userId: string }>;
