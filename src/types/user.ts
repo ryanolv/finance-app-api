@@ -15,7 +15,7 @@ export type UpdateUserParams = {
   password?: string;
 };
 
-export type CreatedUser = {
+export type User = {
   id: string;
   first_name: string;
   last_name: string;
