@@ -1,19 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { UserNotFoundError } from "../../errors/user.js";
-import {
-  PostgresCreateTransactionRepository,
-  PostgresGetUserByIdRepository,
-} from "../../repositories/postgres/index.js";
+import { PostgresCreateTransactionRepository } from "../../repositories/postgres/index.js";
 import { CreateTransactionParams } from "../../types/index.js";
+import { GetUserByIdRepository } from "../../interfaces/repositories/user.js";
 
 export class CreateTransactionUseCase {
   private createTransactionRepository: PostgresCreateTransactionRepository;
-  private getUserByIdRepository: PostgresGetUserByIdRepository;
+  private getUserByIdRepository: GetUserByIdRepository;
 
   constructor(
     createTransactionRepository: PostgresCreateTransactionRepository,
-    getUserByIdRepository: PostgresGetUserByIdRepository,
+    getUserByIdRepository: GetUserByIdRepository,
   ) {
     this.createTransactionRepository = createTransactionRepository;
     this.getUserByIdRepository = getUserByIdRepository;

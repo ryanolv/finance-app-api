@@ -1,8 +1,8 @@
-import { PostgresGetUserByIdRepository } from "../../repositories/postgres/index.js";
+import { GetUserByIdRepository } from "../../interfaces/repositories/user.js";
 
 export class GetUserByIdUseCase {
-  private getUserByIdRepository: PostgresGetUserByIdRepository;
-  constructor(getUserByIdRepository: PostgresGetUserByIdRepository) {
+  private getUserByIdRepository: GetUserByIdRepository;
+  constructor(getUserByIdRepository: GetUserByIdRepository) {
     this.getUserByIdRepository = getUserByIdRepository;
   }
   async execute(userId: string) {
