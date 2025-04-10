@@ -1,6 +1,10 @@
 import { EmailAlreadyExistsError } from "../../errors/user.js";
-import { CreateUserRequest } from "../../types/index.js";
-import { CreateUserUseCase } from "../../use-cases/index.js";
+import { UseCase } from "../../interfaces/use-cases/user.js";
+import {
+  CreateUserRequest,
+  CreateUserUseCaseParams,
+  User,
+} from "../../types/index.js";
 import {
   checkIfEmailIsNotValid,
   checkIfPasswordIsNotValid,
@@ -14,9 +18,9 @@ import {
 } from "../helpers/index.js";
 
 export class CreateUserController {
-  private createUserUseCase: CreateUserUseCase;
+  private createUserUseCase: UseCase<CreateUserUseCaseParams, User>;
 
-  constructor(createUserUseCase: CreateUserUseCase) {
+  constructor(createUserUseCase: UseCase<CreateUserUseCaseParams, User>) {
     this.createUserUseCase = createUserUseCase;
   }
 
