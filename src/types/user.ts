@@ -8,6 +8,8 @@ export type CreateUserParams = {
   password: string;
 };
 
+export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
+
 export type UpdateUserParams = {
   first_name?: string;
   last_name?: string;
