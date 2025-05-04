@@ -1,6 +1,7 @@
 import { EmailAlreadyExistsError } from "../../errors/user.js";
+import { CreateUserControllerInterface } from "../../interfaces/controllers/user.js";
 import { CreateUserUseCaseInterface } from "../../interfaces/use-cases/user.js";
-import { CreateUserRequest } from "../../types/index.js";
+import { CreateUserRequest, HttpResponse } from "../../types/index.js";
 import {
   checkIfEmailIsNotValid,
   checkIfPasswordIsNotValid,
@@ -13,14 +14,14 @@ import {
   requiredFieldIsMissingResponse,
 } from "../helpers/index.js";
 
-export class CreateUserController {
+export class CreateUserController implements CreateUserControllerInterface {
   private createUserUseCase: CreateUserUseCaseInterface;
 
   constructor(createUserUseCase: CreateUserUseCaseInterface) {
     this.createUserUseCase = createUserUseCase;
   }
 
-  async execute(httpRequest: CreateUserRequest) {
+  async execute(httpRequest: CreateUserRequest): Promise<HttpResponse> {
     try {
       const params = httpRequest.body;
       const requiredFields = ["first_name", "last_name", "email", "password"];
