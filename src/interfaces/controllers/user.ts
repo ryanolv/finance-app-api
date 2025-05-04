@@ -1,6 +1,7 @@
 import {
   CreateUserRequest,
   DeleteUserRequest,
+  GetUserBalanceRequest,
   GetUserByIdRequest,
   HttpResponse,
   UpdateUserRequest,
@@ -20,4 +21,8 @@ export interface GetUserByIdControllerInterface {
 
 export interface UpdateUserControllerInterface {
   execute(httpRequest: UpdateUserRequest): Promise<HttpResponse>;
+}
+
+export interface GetUserBalanceControllerInterface {
+  execute(httpRequest: GetUserBalanceRequest): Promise<HttpResponse>;
 }

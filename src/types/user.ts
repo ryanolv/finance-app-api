@@ -44,3 +44,5 @@ export type UpdateUserRequest = HttpRequest<
   UpdateUserParams,
   { userId: string }
 >;
+
+export type GetUserBalanceRequest = HttpRequest<null, { userId: string }>;
