@@ -5,3 +5,7 @@ export interface CreateTransactionUseCaseInterface {
     createTransactionParams: Omit<CreateTransactionParams, "id">,
   ): Promise<Transaction>;
 }
+
+export interface DeleteTransactionUseCaseInterface {
+  execute(transactionId: string): Promise<Transaction>;
+}

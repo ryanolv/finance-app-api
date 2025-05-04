@@ -1,5 +1,5 @@
+import { DeleteTransactionUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
 import { DeleteTransactionRequest } from "../../types/transaction.js";
-import { DeleteTransactionUseCase } from "../../use-cases/index.js";
 import {
   checkIfIdIsValid,
   internalServerError,
@@ -9,8 +9,8 @@ import {
 } from "../helpers/index.js";
 
 export class DeleteTransactionController {
-  private deleteTransactionUseCase: DeleteTransactionUseCase;
-  constructor(deleteTransactionUseCase: DeleteTransactionUseCase) {
+  private deleteTransactionUseCase: DeleteTransactionUseCaseInterface;
+  constructor(deleteTransactionUseCase: DeleteTransactionUseCaseInterface) {
     this.deleteTransactionUseCase = deleteTransactionUseCase;
   }
 
