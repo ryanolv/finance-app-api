@@ -2,15 +2,14 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 
 import { EmailAlreadyExistsError } from "../../errors/user.js";
-import { CreateUserParams } from "../../types/index.js";
+import { CreateUserUseCaseParams } from "../../types/index.js";
 import {
   CreateUserRepository,
   GetUserByEmailRepository,
 } from "../../interfaces/repositories/user.js";
+import { CreateUserUseCaseInterface } from "../../interfaces/use-cases/user.js";
 
-export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
-
-export class CreateUserUseCase {
+export class CreateUserUseCase implements CreateUserUseCaseInterface {
   private createUserRepository: CreateUserRepository;
   private getUserByEmailRepository: GetUserByEmailRepository;
 

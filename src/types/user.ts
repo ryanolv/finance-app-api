@@ -9,7 +9,6 @@ export type CreateUserParams = {
 };
 
 export type CreateUserUseCaseParams = Omit<CreateUserParams, "ID">;
-
 export type UpdateUserParams = {
   first_name?: string;
   last_name?: string;
