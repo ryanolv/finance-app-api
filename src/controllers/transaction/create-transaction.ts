@@ -12,15 +12,19 @@ import {
 } from "../helpers/index.js";
 import { CreateTransactionRequest } from "../../types/transaction.js";
 import { CreateTransactionUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
+import { CreateTransactionControllerInterface } from "../../interfaces/controllers/transaction.js";
+import { HttpResponse } from "../../types/http.js";
 
-export class CreateTransactionController {
+export class CreateTransactionController
+  implements CreateTransactionControllerInterface
+{
   private createTransactionUseCase: CreateTransactionUseCaseInterface;
 
   constructor(createTransactionUseCase: CreateTransactionUseCaseInterface) {
     this.createTransactionUseCase = createTransactionUseCase;
   }
 
-  async execute(httpRequest: CreateTransactionRequest) {
+  async execute(httpRequest: CreateTransactionRequest): Promise<HttpResponse> {
     try {
       const params = httpRequest.body;
 
