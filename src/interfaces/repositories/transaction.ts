@@ -5,3 +5,7 @@ export interface CreateTransactionRepository {
     createTransactionParams: CreateTransactionParams,
   ): Promise<Transaction>;
 }
+
+export interface DeleteTransactionRepository {
+  execute(transactionId: string): Promise<Transaction>;
+}

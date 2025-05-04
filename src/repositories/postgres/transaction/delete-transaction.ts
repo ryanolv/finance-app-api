@@ -1,7 +1,11 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
+import { DeleteTransactionRepository } from "../../../interfaces/repositories/transaction.js";
+import { Transaction } from "../../../types/transaction.js";
 
-export class PostgresDeleteTransactionRepository {
-  async execute(transactionId: string) {
+export class PostgresDeleteTransactionRepository
+  implements DeleteTransactionRepository
+{
+  async execute(transactionId: string): Promise<Transaction> {
     const deletedUser = await PostgresHelper.query(
       `
         DELETE FROM transactions
@@ -10,6 +14,6 @@ export class PostgresDeleteTransactionRepository {
     `,
       [transactionId],
     );
-    return deletedUser[0];
+    return deletedUser[0] as Transaction;
   }
 }

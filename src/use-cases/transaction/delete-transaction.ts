@@ -1,11 +1,9 @@
-import { PostgresDeleteTransactionRepository } from "../../repositories/postgres/index.js";
+import { DeleteTransactionRepository } from "../../interfaces/repositories/transaction.js";
 
 export class DeleteTransactionUseCase {
-  private deleteTransactionRepository: PostgresDeleteTransactionRepository;
+  private deleteTransactionRepository: DeleteTransactionRepository;
 
-  constructor(
-    deleteTransactionRepository: PostgresDeleteTransactionRepository,
-  ) {
+  constructor(deleteTransactionRepository: DeleteTransactionRepository) {
     this.deleteTransactionRepository = deleteTransactionRepository;
   }
 
