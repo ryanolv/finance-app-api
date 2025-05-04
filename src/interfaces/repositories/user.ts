@@ -1,4 +1,9 @@
-import { User, CreateUserParams, UpdateUserParams } from "../../types/index.js";
+import {
+  User,
+  CreateUserParams,
+  UpdateUserParams,
+  BalanceOfUser,
+} from "../../types/index.js";
 
 export interface CreateUserRepository {
   execute(createUserParams: CreateUserParams): Promise<User>;
@@ -18,4 +23,8 @@ export interface DeleteUserRepository {
 
 export interface UpdateUserRepository {
   execute(userId: string, updateUserParams: UpdateUserParams): Promise<User>;
+}
+
+export interface GetUserBalanceRepository {
+  execute(userId: string): Promise<BalanceOfUser>;
 }

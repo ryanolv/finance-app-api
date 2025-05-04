@@ -26,6 +26,14 @@ export type User = {
   updated_at: string;
 };
 
+export type BalanceOfUser = {
+  userId: string;
+  earnings: number;
+  expenses: number;
+  investments: number;
+  balance: number;
+};
+
 export type CreateUserRequest = HttpRequest<Omit<CreateUserParams, "ID">>;
 
 export type DeleteUserRequest = HttpRequest<null, { userId: string }>;
