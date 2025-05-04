@@ -1,5 +1,5 @@
+import { UpdateUserUseCaseInterface } from "../../interfaces/use-cases/user.js";
 import { UpdateUserRequest } from "../../types/index.js";
-import { UpdateUserUseCase } from "../../use-cases/index.js";
 import {
   checkIfEmailIsNotValid,
   checkIfIdIsValid,
@@ -13,9 +13,9 @@ import {
 } from "../helpers/index.js";
 
 export class UpdateUserController {
-  private updateUserUseCase: UpdateUserUseCase;
+  private updateUserUseCase: UpdateUserUseCaseInterface;
 
-  constructor(updateUserUseCase: UpdateUserUseCase) {
+  constructor(updateUserUseCase: UpdateUserUseCaseInterface) {
     this.updateUserUseCase = updateUserUseCase;
   }
 

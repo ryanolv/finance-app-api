@@ -1,13 +1,14 @@
 import bcrypt from "bcrypt";
 
 import { EmailAlreadyExistsError } from "../../errors/user.js";
-import { UpdateUserParams } from "../../types/index.js";
+import { UpdateUserParams, User } from "../../types/index.js";
 import {
   GetUserByEmailRepository,
   UpdateUserRepository,
 } from "../../interfaces/repositories/user.js";
+import { UpdateUserUseCaseInterface } from "../../interfaces/use-cases/user.js";
 
-export class UpdateUserUseCase {
+export class UpdateUserUseCase implements UpdateUserUseCaseInterface {
   private getUserByEmailRepository: GetUserByEmailRepository;
   private updateUserRepository: UpdateUserRepository;
 
@@ -18,7 +19,10 @@ export class UpdateUserUseCase {
     this.getUserByEmailRepository = getUserByEmailRepository;
     this.updateUserRepository = updateUserRepository;
   }
-  async execute(userId: string, updatedUserParams: UpdateUserParams) {
+  async execute(
+    userId: string,
+    updatedUserParams: UpdateUserParams,
+  ): Promise<User> {
     if (updatedUserParams.email) {
       const userWithProvideEmail = await this.getUserByEmailRepository.execute(
         updatedUserParams.email,
