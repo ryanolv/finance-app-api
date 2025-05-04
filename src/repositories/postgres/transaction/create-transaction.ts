@@ -1,8 +1,13 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
-import { CreateTransactionParams } from "../../../types/index.js";
+import { CreateTransactionRepository } from "../../../interfaces/repositories/transaction.js";
+import { CreateTransactionParams, Transaction } from "../../../types/index.js";
 
-export class PostgresCreateTransactionRepository {
-  async execute(createTransactionParams: CreateTransactionParams) {
+export class PostgresCreateTransactionRepository
+  implements CreateTransactionRepository
+{
+  async execute(
+    createTransactionParams: CreateTransactionParams,
+  ): Promise<Transaction> {
     const createdTransaction = await PostgresHelper.query(
       `
       INSERT INTO transactions (id, user_id, name, date, amount, type) 
@@ -18,6 +23,6 @@ export class PostgresCreateTransactionRepository {
         createTransactionParams.type,
       ],
     );
-    return createdTransaction[0];
+    return createdTransaction[0] as Transaction;
   }
 }
