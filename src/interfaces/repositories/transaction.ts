@@ -9,3 +9,7 @@ export interface CreateTransactionRepository {
 export interface DeleteTransactionRepository {
   execute(transactionId: string): Promise<Transaction>;
 }
+
+export interface GetTransactionByIdRepository {
+  execute(transactionId: string): Promise<Transaction>;
+}

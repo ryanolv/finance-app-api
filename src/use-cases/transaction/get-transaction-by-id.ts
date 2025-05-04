@@ -1,11 +1,9 @@
-import { PostgresGetTransactionByIdRepository } from "../../repositories/postgres/index.js";
+import { GetTransactionByIdRepository } from "../../interfaces/repositories/transaction.js";
 
 export class GetTransactionByIdUseCase {
-  private getTransactionByIdRepository: PostgresGetTransactionByIdRepository;
+  private getTransactionByIdRepository: GetTransactionByIdRepository;
 
-  constructor(
-    getTransactionByIdRepository: PostgresGetTransactionByIdRepository,
-  ) {
+  constructor(getTransactionByIdRepository: GetTransactionByIdRepository) {
     this.getTransactionByIdRepository = getTransactionByIdRepository;
   }
 
