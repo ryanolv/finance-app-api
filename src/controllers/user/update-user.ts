@@ -1,5 +1,6 @@
+import { UpdateUserControllerInterface } from "../../interfaces/controllers/user.js";
 import { UpdateUserUseCaseInterface } from "../../interfaces/use-cases/user.js";
-import { UpdateUserRequest } from "../../types/index.js";
+import { HttpResponse, UpdateUserRequest } from "../../types/index.js";
 import {
   checkIfEmailIsNotValid,
   checkIfIdIsValid,
@@ -12,14 +13,14 @@ import {
   ok,
 } from "../helpers/index.js";
 
-export class UpdateUserController {
+export class UpdateUserController implements UpdateUserControllerInterface {
   private updateUserUseCase: UpdateUserUseCaseInterface;
 
   constructor(updateUserUseCase: UpdateUserUseCaseInterface) {
     this.updateUserUseCase = updateUserUseCase;
   }
 
-  async execute(httpRequest: UpdateUserRequest) {
+  async execute(httpRequest: UpdateUserRequest): Promise<HttpResponse> {
     try {
       const params = httpRequest.body;
       const userId = httpRequest.params!.userId;

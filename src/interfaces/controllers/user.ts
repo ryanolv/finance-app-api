@@ -3,6 +3,7 @@ import {
   DeleteUserRequest,
   GetUserByIdRequest,
   HttpResponse,
+  UpdateUserRequest,
 } from "../../types";
 
 export interface CreateUserControllerInterface {
@@ -15,4 +16,8 @@ export interface DeleteUserControllerInterface {
 
 export interface GetUserByIdControllerInterface {
   execute(httpRequest: GetUserByIdRequest): Promise<HttpResponse>;
+}
+
+export interface UpdateUserControllerInterface {
+  execute(httpRequest: UpdateUserRequest): Promise<HttpResponse>;
 }
