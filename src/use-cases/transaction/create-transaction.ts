@@ -1,11 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { UserNotFoundError } from "../../errors/user.js";
-import { CreateTransactionParams } from "../../types/index.js";
+import { CreateTransactionParams, Transaction } from "../../types/index.js";
 import { GetUserByIdRepository } from "../../interfaces/repositories/user.js";
 import { CreateTransactionRepository } from "../../interfaces/repositories/transaction.js";
+import { CreateTransactionUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
 
-export class CreateTransactionUseCase {
+export class CreateTransactionUseCase
+  implements CreateTransactionUseCaseInterface
+{
   private createTransactionRepository: CreateTransactionRepository;
   private getUserByIdRepository: GetUserByIdRepository;
 
@@ -17,7 +20,9 @@ export class CreateTransactionUseCase {
     this.getUserByIdRepository = getUserByIdRepository;
   }
 
-  async execute(createTransactionParams: Omit<CreateTransactionParams, "id">) {
+  async execute(
+    createTransactionParams: Omit<CreateTransactionParams, "id">,
+  ): Promise<Transaction> {
     const userId = createTransactionParams.user_id;
 
     const user = await this.getUserByIdRepository.execute(userId);

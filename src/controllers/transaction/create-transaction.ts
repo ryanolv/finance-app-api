@@ -10,13 +10,13 @@ import {
   invalidTypeResponse,
   invalidAmountResponse,
 } from "../helpers/index.js";
-import { CreateTransactionUseCase } from "../../use-cases/transaction/create-transaction.js";
 import { CreateTransactionRequest } from "../../types/transaction.js";
+import { CreateTransactionUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
 
 export class CreateTransactionController {
-  private createTransactionUseCase: CreateTransactionUseCase;
+  private createTransactionUseCase: CreateTransactionUseCaseInterface;
 
-  constructor(createTransactionUseCase: CreateTransactionUseCase) {
+  constructor(createTransactionUseCase: CreateTransactionUseCaseInterface) {
     this.createTransactionUseCase = createTransactionUseCase;
   }
 
