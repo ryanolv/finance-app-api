@@ -1,5 +1,5 @@
+import { DeleteUserUseCaseInterface } from "../../interfaces/use-cases/user.js";
 import { DeleteUserRequest } from "../../types/index.js";
-import { DeleteUserUseCase } from "../../use-cases/index.js";
 import {
   checkIfIdIsValid,
   internalServerError,
@@ -9,9 +9,9 @@ import {
 } from "../helpers/index.js";
 
 export class DeleteUserController {
-  private deleteUserUseCase: DeleteUserUseCase;
+  private deleteUserUseCase: DeleteUserUseCaseInterface;
 
-  constructor(deleteUserUseCase: DeleteUserUseCase) {
+  constructor(deleteUserUseCase: DeleteUserUseCaseInterface) {
     this.deleteUserUseCase = deleteUserUseCase;
   }
 
