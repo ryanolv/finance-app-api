@@ -9,3 +9,7 @@ export interface CreateTransactionUseCaseInterface {
 export interface DeleteTransactionUseCaseInterface {
   execute(transactionId: string): Promise<Transaction>;
 }
+
+export interface GetTransactionByIdUseCaseInterface {
+  execute(transactionId: string): Promise<Transaction>;
+}

@@ -1,5 +1,5 @@
+import { GetTransactionByIdUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
 import { GetTransactionByIdRequest } from "../../types/index.js";
-import { GetTransactionByIdUseCase } from "../../use-cases/index.js";
 import {
   checkIfIdIsValid,
   internalServerError,
@@ -9,9 +9,9 @@ import {
 } from "../helpers/index.js";
 
 export class GetTransactionByIdController {
-  private getTransactionByIdUseCase: GetTransactionByIdUseCase;
+  private getTransactionByIdUseCase: GetTransactionByIdUseCaseInterface;
 
-  constructor(getTransactionByIdUseCase: GetTransactionByIdUseCase) {
+  constructor(getTransactionByIdUseCase: GetTransactionByIdUseCaseInterface) {
     this.getTransactionByIdUseCase = getTransactionByIdUseCase;
   }
 
