@@ -3,9 +3,12 @@ import {
   GetTransactionByIdRepository,
   UpdateTransactionRepository,
 } from "../../interfaces/repositories/transaction.js";
-import { UpdateTransactionParams } from "../../types/index.js";
+import { UpdateTransactionUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
+import { Transaction, UpdateTransactionParams } from "../../types/index.js";
 
-export class UpdateTransactionUseCase {
+export class UpdateTransactionUseCase
+  implements UpdateTransactionUseCaseInterface
+{
   private updateTransactionRepository: UpdateTransactionRepository;
   private getTransactionByIdRepository: GetTransactionByIdRepository;
 
@@ -20,7 +23,7 @@ export class UpdateTransactionUseCase {
   async execute(
     transactionId: string,
     updateTransactionParams: UpdateTransactionParams,
-  ) {
+  ): Promise<Transaction> {
     const transaction =
       await this.getTransactionByIdRepository.execute(transactionId);
 

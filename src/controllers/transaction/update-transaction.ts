@@ -1,5 +1,5 @@
+import { UpdateTransactionUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
 import { UpdateTransactionRequest } from "../../types/transaction.js";
-import { UpdateTransactionUseCase } from "../../use-cases/index.js";
 import {
   checkIfAmountIsValid,
   checkIfIdIsValid,
@@ -13,9 +13,9 @@ import {
 } from "../helpers/index.js";
 
 export class UpdateTransactionController {
-  private updateTransactionUseCase: UpdateTransactionUseCase;
+  private updateTransactionUseCase: UpdateTransactionUseCaseInterface;
 
-  constructor(updateTransactionUseCase: UpdateTransactionUseCase) {
+  constructor(updateTransactionUseCase: UpdateTransactionUseCaseInterface) {
     this.updateTransactionUseCase = updateTransactionUseCase;
   }
 
