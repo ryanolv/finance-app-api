@@ -3,6 +3,7 @@ import {
   DeleteTransactionRequest,
   GetTransactionByIdRequest,
   HttpResponse,
+  UpdateTransactionRequest,
 } from "../../types";
 
 export interface CreateTransactionControllerInterface {
@@ -15,4 +16,8 @@ export interface DeleteTransactionControllerInterface {
 
 export interface GetTransactionByIdControllerInterface {
   execute(httpRequest: GetTransactionByIdRequest): Promise<HttpResponse>;
+}
+
+export interface UpdateTransactionControllerInterface {
+  execute(httpRequest: UpdateTransactionRequest): Promise<HttpResponse>;
 }

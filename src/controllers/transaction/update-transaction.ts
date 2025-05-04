@@ -1,4 +1,6 @@
+import { UpdateTransactionControllerInterface } from "../../interfaces/controllers/transaction.js";
 import { UpdateTransactionUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
+import { HttpResponse } from "../../types/http.js";
 import { UpdateTransactionRequest } from "../../types/transaction.js";
 import {
   checkIfAmountIsValid,
@@ -12,14 +14,19 @@ import {
   someFieldIsNotAllowedResponse,
 } from "../helpers/index.js";
 
-export class UpdateTransactionController {
+export class UpdateTransactionController
+  implements UpdateTransactionControllerInterface
+{
   private updateTransactionUseCase: UpdateTransactionUseCaseInterface;
 
   constructor(updateTransactionUseCase: UpdateTransactionUseCaseInterface) {
     this.updateTransactionUseCase = updateTransactionUseCase;
   }
 
-  async execute({ params, body }: UpdateTransactionRequest) {
+  async execute({
+    params,
+    body,
+  }: UpdateTransactionRequest): Promise<HttpResponse> {
     try {
       const validId = checkIfIdIsValid(params!.transactionId);
       if (!validId) {
