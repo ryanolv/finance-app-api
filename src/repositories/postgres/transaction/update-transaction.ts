@@ -1,11 +1,14 @@
 import { PostgresHelper } from "../../../db/postgres/helper.js";
-import { UpdateTransactionParams } from "../../../types/index.js";
+import { UpdateTransactionRepository } from "../../../interfaces/repositories/transaction.js";
+import { Transaction, UpdateTransactionParams } from "../../../types/index.js";
 
-export class PostgresUpdateTransactionRepository {
+export class PostgresUpdateTransactionRepository
+  implements UpdateTransactionRepository
+{
   async execute(
     transactionId: string,
     updateTransactionParams: UpdateTransactionParams,
-  ) {
+  ): Promise<Transaction> {
     const updateFields: string[] = [];
     const updateValues: string[] = [];
 
@@ -27,6 +30,6 @@ export class PostgresUpdateTransactionRepository {
       updateQuery,
       updateValues,
     );
-    return updatedTransaction[0];
+    return updatedTransaction[0] as Transaction;
   }
 }

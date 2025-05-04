@@ -1,4 +1,8 @@
-import { CreateTransactionParams, Transaction } from "../../types";
+import {
+  CreateTransactionParams,
+  Transaction,
+  UpdateTransactionParams,
+} from "../../types";
 
 export interface CreateTransactionRepository {
   execute(
@@ -12,4 +16,11 @@ export interface DeleteTransactionRepository {
 
 export interface GetTransactionByIdRepository {
   execute(transactionId: string): Promise<Transaction>;
+}
+
+export interface UpdateTransactionRepository {
+  execute(
+    transactionId: string,
+    updateTransactionParams: UpdateTransactionParams,
+  ): Promise<Transaction>;
 }

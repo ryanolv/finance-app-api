@@ -1,17 +1,17 @@
 import { TransactionNotFoundError } from "../../errors/transaction.js";
 import {
-  PostgresGetTransactionByIdRepository,
-  PostgresUpdateTransactionRepository,
-} from "../../repositories/postgres/index.js";
+  GetTransactionByIdRepository,
+  UpdateTransactionRepository,
+} from "../../interfaces/repositories/transaction.js";
 import { UpdateTransactionParams } from "../../types/index.js";
 
 export class UpdateTransactionUseCase {
-  private updateTransactionRepository: PostgresUpdateTransactionRepository;
-  private getTransactionByIdRepository: PostgresGetTransactionByIdRepository;
+  private updateTransactionRepository: UpdateTransactionRepository;
+  private getTransactionByIdRepository: GetTransactionByIdRepository;
 
   constructor(
-    updateTransactionRepository: PostgresUpdateTransactionRepository,
-    getTransactionByIdRepository: PostgresGetTransactionByIdRepository,
+    updateTransactionRepository: UpdateTransactionRepository,
+    getTransactionByIdRepository: GetTransactionByIdRepository,
   ) {
     this.updateTransactionRepository = updateTransactionRepository;
     this.getTransactionByIdRepository = getTransactionByIdRepository;
