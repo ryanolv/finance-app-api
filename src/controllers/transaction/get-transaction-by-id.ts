@@ -1,5 +1,6 @@
+import { GetTransactionByIdControllerInterface } from "../../interfaces/controllers/transaction.js";
 import { GetTransactionByIdUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
-import { GetTransactionByIdRequest } from "../../types/index.js";
+import { GetTransactionByIdRequest, HttpResponse } from "../../types/index.js";
 import {
   checkIfIdIsValid,
   internalServerError,
@@ -8,14 +9,16 @@ import {
   ok,
 } from "../helpers/index.js";
 
-export class GetTransactionByIdController {
+export class GetTransactionByIdController
+  implements GetTransactionByIdControllerInterface
+{
   private getTransactionByIdUseCase: GetTransactionByIdUseCaseInterface;
 
   constructor(getTransactionByIdUseCase: GetTransactionByIdUseCaseInterface) {
     this.getTransactionByIdUseCase = getTransactionByIdUseCase;
   }
 
-  async execute(httpRequest: GetTransactionByIdRequest) {
+  async execute(httpRequest: GetTransactionByIdRequest): Promise<HttpResponse> {
     try {
       const transactionId = httpRequest.params!.transactionId;
 
