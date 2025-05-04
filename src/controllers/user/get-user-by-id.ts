@@ -1,5 +1,5 @@
+import { GetUserByIdUseCaseInterface } from "../../interfaces/use-cases/user.js";
 import { GetUserByIdRequest } from "../../types/index.js";
-import { GetUserByIdUseCase } from "../../use-cases/index.js";
 import {
   checkIfIdIsValid,
   invalidIdResponse,
@@ -9,9 +9,9 @@ import {
 } from "../helpers/index.js";
 
 export class GetUserByIdController {
-  private getUserByIdUseCase: GetUserByIdUseCase;
+  private getUserByIdUseCase: GetUserByIdUseCaseInterface;
 
-  constructor(getUserByIdUseCase: GetUserByIdUseCase) {
+  constructor(getUserByIdUseCase: GetUserByIdUseCaseInterface) {
     this.getUserByIdUseCase = getUserByIdUseCase;
   }
   async execute(request: GetUserByIdRequest) {

@@ -7,3 +7,7 @@ export interface CreateUserUseCaseInterface {
 export interface DeleteUserUseCaseInterface {
   execute(userId: string): Promise<User>;
 }
+
+export interface GetUserByIdUseCaseInterface {
+  execute(userId: string): Promise<User>;
+}
