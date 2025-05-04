@@ -2,6 +2,7 @@ import {
   User,
   CreateUserUseCaseParams,
   UpdateUserParams,
+  BalanceOfUser,
 } from "../../types/index.js";
 
 export interface CreateUserUseCaseInterface {
@@ -18,4 +19,8 @@ export interface GetUserByIdUseCaseInterface {
 
 export interface UpdateUserUseCaseInterface {
   execute(userId: string, updateUserParams: UpdateUserParams): Promise<User>;
+}
+
+export interface GetUserBalanceUseCaseInterface {
+  execute(userId: string): Promise<BalanceOfUser>;
 }
