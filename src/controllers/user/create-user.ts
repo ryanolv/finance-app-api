@@ -1,18 +1,10 @@
+import { ZodError } from "zod";
 import { EmailAlreadyExistsError } from "../../errors/user.js";
 import { CreateUserControllerInterface } from "../../interfaces/controllers/user.js";
 import { CreateUserUseCaseInterface } from "../../interfaces/use-cases/user.js";
 import { CreateUserRequest, HttpResponse } from "../../types/index.js";
-import {
-  checkIfEmailIsNotValid,
-  checkIfPasswordIsNotValid,
-  invalidEmailResponse,
-  invalidPasswordResponse,
-  badRequest,
-  created,
-  internalServerError,
-  validateRequiredFields,
-  requiredFieldIsMissingResponse,
-} from "../helpers/index.js";
+import { badRequest, created, internalServerError } from "../helpers/index.js";
+import { createUserSchema } from "../../schemas/user.js";
 
 export class CreateUserController implements CreateUserControllerInterface {
   private createUserUseCase: CreateUserUseCaseInterface;
@@ -23,33 +15,16 @@ export class CreateUserController implements CreateUserControllerInterface {
 
   async execute(httpRequest: CreateUserRequest): Promise<HttpResponse> {
     try {
-      const params = httpRequest.body;
-      const requiredFields = ["first_name", "last_name", "email", "password"];
+      const { body } = httpRequest;
 
-      if (!params) {
-        return badRequest("Missing request body");
-      }
+      await createUserSchema.parseAsync(body);
 
-      const { ok: requiredFieldsAreFilled, missingField } =
-        validateRequiredFields(params, requiredFields);
-
-      if (!requiredFieldsAreFilled) {
-        return requiredFieldIsMissingResponse(missingField as string);
-      }
-
-      const emailIsNotValid = checkIfEmailIsNotValid(params.email);
-      if (emailIsNotValid) {
-        return invalidEmailResponse();
-      }
-
-      const passwordIsNotValid = checkIfPasswordIsNotValid(params.password);
-      if (passwordIsNotValid) {
-        return invalidPasswordResponse();
-      }
-
-      const createdUser = await this.createUserUseCase.execute(params);
+      const createdUser = await this.createUserUseCase.execute(body);
       return created(createdUser);
     } catch (error) {
+      if (error instanceof ZodError) {
+        return badRequest(error.errors[0].message);
+      }
       if (error instanceof EmailAlreadyExistsError) {
         return badRequest(error.message);
       }
