@@ -1,17 +1,10 @@
+import { ZodError } from "zod";
 import { UpdateUserControllerInterface } from "../../interfaces/controllers/user.js";
 import { UpdateUserUseCaseInterface } from "../../interfaces/use-cases/user.js";
+import { updateUserSchema } from "../../schemas/user.js";
 import { HttpResponse, UpdateUserRequest } from "../../types/index.js";
-import {
-  checkIfEmailIsNotValid,
-  checkIfIdIsValid,
-  checkIfPasswordIsNotValid,
-  invalidEmailResponse,
-  invalidIdResponse,
-  invalidPasswordResponse,
-  badRequest,
-  internalServerError,
-  ok,
-} from "../helpers/index.js";
+import { badRequest, internalServerError, ok } from "../helpers/index.js";
+import { EmailAlreadyExistsError } from "../../errors/user.js";
 
 export class UpdateUserController implements UpdateUserControllerInterface {
   private updateUserUseCase: UpdateUserUseCaseInterface;
@@ -22,46 +15,21 @@ export class UpdateUserController implements UpdateUserControllerInterface {
 
   async execute(httpRequest: UpdateUserRequest): Promise<HttpResponse> {
     try {
-      const params = httpRequest.body;
-      const userId = httpRequest.params!.userId;
-      const isIdValid = checkIfIdIsValid(userId);
+      const { body, params } = httpRequest;
+      await updateUserSchema.parseAsync(body);
 
-      if (!isIdValid) {
-        return invalidIdResponse();
-      }
+      const userId = params!.userId;
 
-      const allowedFields = ["first_name", "last_name", "email", "password"];
-      const someFieldIsNotAllowed = Object.keys(params).some(
-        (field) => !allowedFields.includes(field),
-      );
-
-      if (someFieldIsNotAllowed) {
-        return badRequest("Some provided field is not allowed.");
-      }
-
-      if (params.password) {
-        const passwordIsNotValid = checkIfPasswordIsNotValid(params.password);
-
-        if (passwordIsNotValid) {
-          return invalidPasswordResponse();
-        }
-      }
-
-      if (params.email) {
-        const emailIsNotValid = checkIfEmailIsNotValid(params.email);
-
-        if (emailIsNotValid) {
-          return invalidEmailResponse();
-        }
-      }
-
-      const updatedUser = await this.updateUserUseCase.execute(
-        userId,
-        httpRequest.body,
-      );
+      const updatedUser = await this.updateUserUseCase.execute(userId, body);
       return ok(updatedUser);
     } catch (error) {
       console.error(error);
+      if (error instanceof ZodError) {
+        return badRequest(error.errors[0].message);
+      }
+      if (error instanceof EmailAlreadyExistsError) {
+        return badRequest(error.message);
+      }
       return internalServerError();
     }
   }
