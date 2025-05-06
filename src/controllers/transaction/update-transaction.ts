@@ -2,17 +2,15 @@ import { UpdateTransactionControllerInterface } from "../../interfaces/controlle
 import { UpdateTransactionUseCaseInterface } from "../../interfaces/use-cases/transaction.js";
 import { HttpResponse } from "../../types/http.js";
 import { UpdateTransactionRequest } from "../../types/transaction.js";
+import { transactionUpdateSchema } from "../../schemas/transaction.js";
 import {
-  checkIfAmountIsValid,
+  badRequest,
   checkIfIdIsValid,
-  checkIfTypeIsValid,
   internalServerError,
-  invalidAmountResponse,
   invalidIdResponse,
-  invalidTypeResponse,
   ok,
-  someFieldIsNotAllowedResponse,
 } from "../helpers/index.js";
+import { ZodError } from "zod";
 
 export class UpdateTransactionController
   implements UpdateTransactionControllerInterface
@@ -33,28 +31,7 @@ export class UpdateTransactionController
         return invalidIdResponse();
       }
 
-      const allowedFields = ["name", "amount", "date", "type"];
-      const someFieldIsNotAllowed = Object.keys(body).some(
-        (field) => !allowedFields.includes(field),
-      );
-
-      if (someFieldIsNotAllowed) {
-        return someFieldIsNotAllowedResponse();
-      }
-
-      if (body.amount) {
-        const validAmount = checkIfAmountIsValid(body.amount);
-        if (!validAmount) {
-          return invalidAmountResponse();
-        }
-      }
-
-      if (body.type) {
-        const validType = checkIfTypeIsValid(body.type);
-        if (!validType) {
-          return invalidTypeResponse();
-        }
-      }
+      await transactionUpdateSchema.parseAsync(body);
 
       const transaction = await this.updateTransactionUseCase.execute(
         params!.transactionId,
@@ -64,6 +41,9 @@ export class UpdateTransactionController
       return ok(transaction);
     } catch (error) {
       console.error(error);
+      if (error instanceof ZodError) {
+        return badRequest(error.errors[0].message);
+      }
       return internalServerError();
     }
   }

@@ -33,3 +33,26 @@ export const transactionSchema = z.object({
     )
     .transform((dateString) => new Date(dateString)),
 });
+
+export const transactionUpdateSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: "Name must be at least 2 character long" })
+    .optional(),
+  amount: z.number().optional(),
+  type: z.enum(["EARNING", "EXPENSE", "INVESTMENT"]).optional(),
+  date: z
+    .string()
+    .refine(
+      (dateString) => {
+        const dateObject = new Date(dateString);
+        return !isNaN(dateObject.getTime());
+      },
+      {
+        message: "Date must be a valid date string",
+      },
+    )
+    .transform((dateString) => new Date(dateString))
+    .optional(),
+});
