@@ -19,7 +19,7 @@ export class PostgresCreateTransactionRepository
         createTransactionParams.user_id,
         createTransactionParams.name,
         createTransactionParams.date,
-        createTransactionParams.amount,
+        createTransactionParams.amount.toString(),
         createTransactionParams.type,
       ],
     );

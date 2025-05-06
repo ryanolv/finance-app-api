@@ -5,7 +5,7 @@ export type Transaction = {
   user_id: string;
   name: string;
   date: string;
-  amount: string;
+  amount: number;
   type: string;
   created_at: string;
   updated_at: string;
@@ -16,14 +16,14 @@ export type CreateTransactionParams = {
   user_id: string;
   name: string;
   date: string;
-  amount: string;
+  amount: number;
   type: string;
 };
 
 export type UpdateTransactionParams = {
   name?: string;
   date?: string;
-  amount?: string;
+  amount?: number;
   type?: string;
 };
 
